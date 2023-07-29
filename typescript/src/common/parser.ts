@@ -12,7 +12,7 @@ const normalizeRow = (row: string): string[] => {
  * Row must be
  *  - 4 items long
  *  - contain only valid colors
- *  - contains no duplicate colors (TODO: this might be changed later)
+ *  - contains no duplicate colors
  */
 export const validateRow = (row: unknown[]): row is Row => {
   if (row.length !== 4) return false;
@@ -39,7 +39,6 @@ export const parseRow = (rawRow: string): ValidationResult => {
     return {
       valid: false,
       rawRow,
-      error: new Error('Invalid row'), // TODO: börhäps not needed
     };
   }
 

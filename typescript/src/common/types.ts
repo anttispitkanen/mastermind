@@ -9,12 +9,11 @@ export enum Color {
   ORANGE = 'ORANGE',
 }
 
-// TODO: is there a way to ensure uniqueness of colors on type level?
 export type Row = [Color, Color, Color, Color];
 
 export type ValidationResult =
   | { valid: true; row: Row; rawRow: string }
-  | { valid: false; rawRow: string; error?: Error };
+  | { valid: false; rawRow: string };
 
 export type GuessResult =
   | {

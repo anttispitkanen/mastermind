@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest",
-    "dev": "ts-node src/index.ts"
+    "dev:cli": "ts-node src/index.cli.ts"
   },
   "keywords": [],
   "author": "Antti Pitkänen",

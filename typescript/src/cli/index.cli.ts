@@ -1,22 +1,9 @@
-import { parseRow } from './parser';
-import { Color, GuessResult, Row } from './types';
-import { renderRow } from './renderer';
-import { gradeGuess } from './grading';
-import { readInput, rl } from './io';
-
-const createRandomRow = (): Row => {
-  const colors = Object.values(Color);
-
-  // Shuffle the colors
-  const shuffledColors = colors.sort(() => Math.random() - 0.5);
-
-  // Pick the first 4 colors
-  const randomRow = shuffledColors.slice(0, 4);
-
-  if (randomRow.length < 4) throw new Error('Not enough colors');
-
-  return randomRow as Row;
-};
+import { createRandomRow } from '../common/createRandomRow';
+import { gradeGuess } from '../common/grading';
+import { parseRow } from '../common/parser';
+import { renderRow } from '../common/renderer';
+import { GuessResult, Row } from '../common/types';
+import { readInput, rl } from './io.cli';
 
 const MAX_GUESSES = 10;
 
