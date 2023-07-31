@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledTableRow = styled.tr<{ correct?: boolean }>`
-  height: 2rem;
+  height: 2.4rem;
   background-color: ${(props) =>
     props.correct ? 'rgba(75,181,67, 0.5)' : 'inherit'};
 `;
@@ -13,4 +13,15 @@ export const StyledTableCell = styled.td`
 
 export const StyledSelect = styled.select`
   min-height: 1.4rem;
+  font-size: 1rem;
+`;
+
+export const StyledOption = styled.option`
+  min-height: 1.4rem;
+  font-size: 1rem;
+`;
+
+export const StyledButton = styled.button`
+  min-height: 1rem;
+  font-size: 1rem;
 `;

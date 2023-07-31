@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { validateRow } from '../../common/parser';
 import { Color, Row } from '../../common/types';
 import { ColorSelector } from './ColorSelector';
-import { StyledTableCell, StyledTableRow } from './StyledReusableComponents';
+import {
+  StyledButton,
+  StyledTableCell,
+  StyledTableRow,
+} from './StyledReusableComponents';
 
 type OpenGuessRowProps = {
   guessIndex: number;
@@ -38,9 +42,9 @@ export const OpenGuessRow = ({ guessIndex, saveGuess }: OpenGuessRowProps) => {
       </>
 
       <StyledTableCell>
-        <button disabled={!guessValid} onClick={() => saveGuess(guess)}>
+        <StyledButton disabled={!guessValid} onClick={() => saveGuess(guess)}>
           Guess
-        </button>
+        </StyledButton>
       </StyledTableCell>
     </StyledTableRow>
   );

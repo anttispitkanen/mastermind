@@ -7,6 +7,7 @@ import { MAX_GUESSES } from '../../common/rules';
 import { Row } from '../../common/types';
 import { assertUnreachable } from '../../common/utils';
 import { Guesses } from './Guesses';
+import { StyledButton } from './StyledReusableComponents';
 import { GameStatus } from './types';
 
 const AppContainer = styled.div`
@@ -14,6 +15,8 @@ const AppContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  padding: 0.4rem;
+  box-sizing: border-box;
 `;
 
 const Emoji = styled.span`
@@ -99,9 +102,9 @@ export const Game = () => {
         return (
           <GameStatusContainer>
             <p>{MAX_GUESSES - guesses.length} guesses left</p>
-            <button onClick={() => setGameStatus(GameStatus.LOST)}>
+            <StyledButton onClick={() => setGameStatus(GameStatus.LOST)}>
               Give up
-            </button>
+            </StyledButton>
           </GameStatusContainer>
         );
 
@@ -109,7 +112,7 @@ export const Game = () => {
         return (
           <GameStatusContainer>
             <p>🥳 You won! 🥳</p>
-            <button onClick={resetGame}>Play again</button>
+            <StyledButton onClick={resetGame}>Play again</StyledButton>
           </GameStatusContainer>
         );
 
@@ -118,7 +121,7 @@ export const Game = () => {
           <GameStatusContainer>
             <p>😢 You lost! 😢</p>
             <p>The correct row was {renderRow(rowToGuess)}</p>
-            <button onClick={resetGame}>Play again</button>
+            <StyledButton onClick={resetGame}>Play again</StyledButton>
           </GameStatusContainer>
         );
 
