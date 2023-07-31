@@ -17,7 +17,7 @@ jobs:
         working-directory: ./typescript
         run: |
           npm ci
-          npm run standalone:build
+          npm run standalone:build -- --base=mastermind # need to add to account for the prefixing
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
