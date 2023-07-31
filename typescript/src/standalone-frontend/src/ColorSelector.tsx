@@ -1,5 +1,6 @@
 import { renderColor } from '../../common/renderer';
 import { Color } from '../../common/types';
+import { StyledSelect } from './StyledReusableComponents';
 
 type ColorSelectorProps = {
   color: Color;
@@ -8,7 +9,7 @@ type ColorSelectorProps = {
 
 export const ColorSelector = ({ color, setColor }: ColorSelectorProps) => {
   return (
-    <select
+    <StyledSelect
       name="color"
       value={color}
       onChange={(event) => setColor(event.target.value as Color)} // FIXME: Can this typecast be avoided?
@@ -18,6 +19,6 @@ export const ColorSelector = ({ color, setColor }: ColorSelectorProps) => {
           {renderColor(color)}
         </option>
       ))}
-    </select>
+    </StyledSelect>
   );
 };

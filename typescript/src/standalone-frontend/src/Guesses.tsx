@@ -1,7 +1,17 @@
+import styled from 'styled-components';
 import { Row } from '../../common/types';
 import { LockedGuessRow } from './LockedGuessRow';
 import { OpenGuessRow } from './OpenGuessRow';
 import { GameStatus } from './types';
+
+const GuessesContainer = styled.div`
+  margin: 1rem 0;
+`;
+
+const StyledTable = styled.table`
+  border-collapse: collapse;
+  border-spacing: 0;
+`;
 
 type GuessesProps = {
   guesses: readonly Row[];
@@ -17,9 +27,8 @@ export const Guesses = ({
   gameStatus,
 }: GuessesProps) => {
   return (
-    <div>
-      <h2>Guesses</h2>
-      <table>
+    <GuessesContainer>
+      <StyledTable>
         <thead>
           <tr>
             <th>#</th>
@@ -45,7 +54,7 @@ export const Guesses = ({
             <OpenGuessRow guessIndex={guesses.length} saveGuess={saveGuess} />
           )}
         </tbody>
-      </table>
-    </div>
+      </StyledTable>
+    </GuessesContainer>
   );
 };

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { validateRow } from '../../common/parser';
 import { Color, Row } from '../../common/types';
 import { ColorSelector } from './ColorSelector';
+import { StyledTableCell, StyledTableRow } from './StyledReusableComponents';
 
 type OpenGuessRowProps = {
   guessIndex: number;
@@ -25,22 +26,22 @@ export const OpenGuessRow = ({ guessIndex, saveGuess }: OpenGuessRowProps) => {
   const guessValid = validateRow(guess);
 
   return (
-    <tr>
-      <td>{guessIndex + 1}</td>
+    <StyledTableRow>
+      <StyledTableCell>{guessIndex + 1}</StyledTableCell>
 
       <>
         {guess.map((color, index) => (
-          <td key={index}>
+          <StyledTableCell key={index}>
             <ColorSelector color={color} setColor={setColor(index)} />
-          </td>
+          </StyledTableCell>
         ))}
       </>
 
-      <td>
+      <StyledTableCell>
         <button disabled={!guessValid} onClick={() => saveGuess(guess)}>
           Guess
         </button>
-      </td>
-    </tr>
+      </StyledTableCell>
+    </StyledTableRow>
   );
 };

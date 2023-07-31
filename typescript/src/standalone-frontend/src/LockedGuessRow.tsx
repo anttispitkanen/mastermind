@@ -1,6 +1,7 @@
 import { gradeGuess } from '../../common/grading';
 import { renderColor } from '../../common/renderer';
 import { Row } from '../../common/types';
+import { StyledTableCell, StyledTableRow } from './StyledReusableComponents';
 
 type LockedGuessRowProps = {
   guess: Row;
@@ -16,17 +17,17 @@ export const LockedGuessRow = ({
   const gradedGuess = gradeGuess(guess, rowToGuess);
 
   return (
-    <tr>
-      <td>{guessIndex + 1}</td>
+    <StyledTableRow correct={gradedGuess.perfectMatch}>
+      <StyledTableCell>{guessIndex + 1}</StyledTableCell>
       <>
         {guess.map((color, index) => (
-          <td key={index}>{renderColor(color)}</td>
+          <StyledTableCell key={index}>{renderColor(color)}</StyledTableCell>
         ))}
       </>
-      <td>
+      <StyledTableCell>
         {gradedGuess.correctColorInCorrectPlace} -{' '}
         {gradedGuess.correctColorInWrongPlace}
-      </td>
-    </tr>
+      </StyledTableCell>
+    </StyledTableRow>
   );
 };
