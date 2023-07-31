@@ -2,10 +2,9 @@ import { createRandomRow } from '../common/createRandomRow';
 import { gradeGuess } from '../common/grading';
 import { parseRow } from '../common/parser';
 import { renderRow } from '../common/renderer';
+import { MAX_GUESSES } from '../common/rules';
 import { GuessResult, Row } from '../common/types';
 import { readInput, rl } from './io.cli';
-
-const MAX_GUESSES = 10;
 
 /**
  * Single round of the game:
