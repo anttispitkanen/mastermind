@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-export const StyledTableRow = styled.tr<{ correct?: boolean }>`
+export const StyledTableRow = styled.tr<{ $correct: boolean }>`
   height: 2.4rem;
-  background-color: ${(props) =>
-    props.correct ? 'rgba(75,181,67, 0.5)' : 'inherit'};
+  background-color: ${(props) => (props.$correct ? '#d4edda' : 'inherit')};
 `;
 
 export const StyledTableCell = styled.td`

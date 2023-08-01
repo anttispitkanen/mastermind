@@ -30,7 +30,7 @@ export const OpenGuessRow = ({ guessIndex, saveGuess }: OpenGuessRowProps) => {
   const guessValid = validateRow(guess);
 
   return (
-    <StyledTableRow>
+    <StyledTableRow $correct={false}>
       <StyledTableCell>{guessIndex + 1}</StyledTableCell>
 
       <>

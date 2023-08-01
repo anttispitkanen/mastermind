@@ -17,7 +17,7 @@ export const LockedGuessRow = ({
   const gradedGuess = gradeGuess(guess, rowToGuess);
 
   return (
-    <StyledTableRow correct={gradedGuess.perfectMatch}>
+    <StyledTableRow $correct={gradedGuess.perfectMatch}>
       <StyledTableCell>{guessIndex + 1}</StyledTableCell>
       <>
         {guess.map((color, index) => (

@@ -6,17 +6,33 @@ import { renderRow } from '../../common/renderer';
 import { MAX_GUESSES } from '../../common/rules';
 import { Row } from '../../common/types';
 import { assertUnreachable } from '../../common/utils';
+import { Footer } from './Footer';
 import { Guesses } from './Guesses';
 import { StyledButton } from './StyledReusableComponents';
 import { GameStatus } from './types';
 
-const AppContainer = styled.div`
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: space-between;
+`;
+
+const GameContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 0.4rem;
+  padding: 0 0.4rem;
   box-sizing: border-box;
+`;
+
+const Header = styled.header`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
 `;
 
 const Emoji = styled.span`
@@ -131,16 +147,21 @@ export const Game = () => {
   };
 
   return (
-    <AppContainer>
-      <h1>🧐 Mastermind 🧐</h1>
-      <Emoji>{renderEmoji()}</Emoji>
-      <Guesses
-        guesses={guesses}
-        rowToGuess={rowToGuess}
-        saveGuess={saveGuess}
-        gameStatus={gameStatus}
-      />
-      {renderGameStatus()}
-    </AppContainer>
+    <Wrapper>
+      <GameContainer>
+        <Header>
+          <h1>🧐 Mastermind 🧐</h1>
+        </Header>
+        <Emoji>{renderEmoji()}</Emoji>
+        <Guesses
+          guesses={guesses}
+          rowToGuess={rowToGuess}
+          saveGuess={saveGuess}
+          gameStatus={gameStatus}
+        />
+        {renderGameStatus()}
+      </GameContainer>
+      <Footer />
+    </Wrapper>
   );
 };
