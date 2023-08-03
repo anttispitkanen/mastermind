@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest",
-    "cli:dev": "ts-node src/index.cli.ts",
+    "cli:dev": "ts-node src/cli/index.cli.ts",
     "standalone:dev": "vite serve src/standalone-frontend",
     "standalone:build": "vite build src/standalone-frontend"
   },

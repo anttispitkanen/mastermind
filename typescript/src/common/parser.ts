@@ -14,37 +14,41 @@ const normalizeRow = (row: string): string[] => {
  *  - contain only valid colors
  *  - contains no duplicate colors
  */
-export const validateRow = (row: unknown[]): row is Row => {
-  if (row.length !== 4) return false;
+export const validateRow =
+  (availableColors: readonly Color[]) =>
+  (row: unknown[]): row is Row => {
+    if (row.length !== 4) return false;
 
-  const validColors = row.filter((color) =>
-    Object.values(Color).includes(color as Color),
-  );
+    const validColors = row.filter((color) =>
+      availableColors.includes(color as Color),
+    );
 
-  if (validColors.length !== 4) return false;
+    if (validColors.length !== 4) return false;
 
-  const validColorsNoDuplicates = new Set(validColors);
+    const validColorsNoDuplicates = new Set(validColors);
 
-  return validColors.length === validColorsNoDuplicates.size;
-};
+    return validColors.length === validColorsNoDuplicates.size;
+  };
 
 /**
  * Parses a raw input string first into an array by splitting
  */
-export const parseRow = (rawRow: string): ValidationResult => {
-  const normalizedRow = normalizeRow(rawRow);
-  const isValid = validateRow(normalizedRow);
+export const parseRow =
+  (availableColors: Color[]) =>
+  (rawRow: string): ValidationResult => {
+    const normalizedRow = normalizeRow(rawRow);
+    const isValid = validateRow(availableColors)(normalizedRow);
 
-  if (!isValid) {
+    if (!isValid) {
+      return {
+        valid: false,
+        rawRow,
+      };
+    }
+
     return {
-      valid: false,
+      valid: true,
+      row: normalizedRow,
       rawRow,
     };
-  }
-
-  return {
-    valid: true,
-    row: normalizedRow,
-    rawRow,
   };
-};

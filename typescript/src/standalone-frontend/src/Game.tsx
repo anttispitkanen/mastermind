@@ -3,8 +3,8 @@ import { styled } from 'styled-components';
 import { createRandomRow } from '../../common/createRandomRow';
 import { gradeGuess } from '../../common/grading';
 import { renderRow } from '../../common/renderer';
-import { MAX_GUESSES } from '../../common/rules';
-import { Row } from '../../common/types';
+import { MAX_GUESSES, getAvailableColors } from '../../common/rules';
+import { Color, Row } from '../../common/types';
 import { assertUnreachable } from '../../common/utils';
 import { Footer } from './Footer';
 import { Guesses } from './Guesses';
@@ -47,7 +47,11 @@ const GameStatusContainer = styled.div`
 `;
 
 export const Game = () => {
-  const [rowToGuess, setRowToGuess] = useState<Row>(createRandomRow());
+  // TODO: enable user to select available colors
+  const [availableColors] = useState<Color[]>(getAvailableColors());
+  const [rowToGuess, setRowToGuess] = useState<Row>(
+    createRandomRow(availableColors),
+  );
   const [guesses, setGuesses] = useState<Row[]>([]);
   const [gameStatus, setGameStatus] = useState<GameStatus>(
     GameStatus.IN_PROGRESS,
@@ -70,7 +74,7 @@ export const Game = () => {
   };
 
   const resetGame = () => {
-    setRowToGuess(createRandomRow());
+    setRowToGuess(createRandomRow(availableColors));
     setGuesses([]);
     setGameStatus(GameStatus.IN_PROGRESS);
   };
@@ -154,6 +158,7 @@ export const Game = () => {
         </Header>
         <Emoji>{renderEmoji()}</Emoji>
         <Guesses
+          availableColors={availableColors}
           guesses={guesses}
           rowToGuess={rowToGuess}
           saveGuess={saveGuess}

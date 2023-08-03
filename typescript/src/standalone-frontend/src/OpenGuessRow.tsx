@@ -9,11 +9,16 @@ import {
 } from './StyledReusableComponents';
 
 type OpenGuessRowProps = {
+  availableColors: readonly Color[];
   guessIndex: number;
   saveGuess: (guess: Row) => void;
 };
 
-export const OpenGuessRow = ({ guessIndex, saveGuess }: OpenGuessRowProps) => {
+export const OpenGuessRow = ({
+  availableColors,
+  guessIndex,
+  saveGuess,
+}: OpenGuessRowProps) => {
   const [guess, setGuess] = useState<Row>([
     Color.RED,
     Color.RED,
@@ -22,12 +27,10 @@ export const OpenGuessRow = ({ guessIndex, saveGuess }: OpenGuessRowProps) => {
   ]);
 
   const setColor = (index: number) => (color: Color) => {
-    setGuess(
-      (prevGuess) => prevGuess.map((c, i) => (i === index ? color : c)) as Row, // TODO: can this typecast be avoided?
-    );
+    setGuess((prevGuess) => prevGuess.map((c, i) => (i === index ? color : c)));
   };
 
-  const guessValid = validateRow(guess);
+  const guessValid: boolean = validateRow(availableColors)(guess);
 
   return (
     <StyledTableRow $correct={false}>
@@ -36,7 +39,11 @@ export const OpenGuessRow = ({ guessIndex, saveGuess }: OpenGuessRowProps) => {
       <>
         {guess.map((color, index) => (
           <StyledTableCell key={index}>
-            <ColorSelector color={color} setColor={setColor(index)} />
+            <ColorSelector
+              availableColors={availableColors}
+              color={color}
+              setColor={setColor(index)}
+            />
           </StyledTableCell>
         ))}
       </>

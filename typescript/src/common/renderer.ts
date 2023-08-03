@@ -9,6 +9,8 @@ const colorsToEmojis = {
   [Color.BLACK]: '⚫️',
   [Color.WHITE]: '⚪️',
   [Color.BROWN]: '🟤',
+  [Color.PURPLE]: '🟣',
+  [Color.RAINBOW]: '🏳️‍🌈',
 } as const;
 
 export const renderColor = (color: Color) => colorsToEmojis[color];

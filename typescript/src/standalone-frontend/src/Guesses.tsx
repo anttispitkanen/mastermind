@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Row } from '../../common/types';
+import { Color, Row } from '../../common/types';
 import { LockedGuessRow } from './LockedGuessRow';
 import { OpenGuessRow } from './OpenGuessRow';
 import { GameStatus } from './types';
@@ -14,6 +14,7 @@ const StyledTable = styled.table`
 `;
 
 type GuessesProps = {
+  availableColors: readonly Color[];
   guesses: readonly Row[];
   rowToGuess: Row;
   saveGuess: (guess: Row) => void;
@@ -21,6 +22,7 @@ type GuessesProps = {
 };
 
 export const Guesses = ({
+  availableColors,
   guesses,
   rowToGuess,
   saveGuess,
@@ -32,10 +34,12 @@ export const Guesses = ({
         <thead>
           <tr>
             <th>#</th>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
+            {Array.from(
+              { length: rowToGuess.length },
+              (_, index) => index + 1,
+            ).map((num) => (
+              <th>{num}</th>
+            ))}
             <th>Result</th>
           </tr>
         </thead>
@@ -51,7 +55,11 @@ export const Guesses = ({
           ))}
 
           {gameStatus === GameStatus.IN_PROGRESS && (
-            <OpenGuessRow guessIndex={guesses.length} saveGuess={saveGuess} />
+            <OpenGuessRow
+              availableColors={availableColors}
+              guessIndex={guesses.length}
+              saveGuess={saveGuess}
+            />
           )}
         </tbody>
       </StyledTable>

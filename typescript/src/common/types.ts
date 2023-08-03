@@ -7,9 +7,11 @@ export enum Color {
   BLACK = 'BLACK',
   WHITE = 'WHITE',
   ORANGE = 'ORANGE',
+  PURPLE = 'PURPLE',
+  RAINBOW = 'RAINBOW',
 }
 
-export type Row = [Color, Color, Color, Color];
+export type Row = Color[];
 
 export type ValidationResult =
   | { valid: true; row: Row; rawRow: string }
