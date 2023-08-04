@@ -8,7 +8,8 @@ import { Color, Row } from '../../common/types';
 import { assertUnreachable } from '../../common/utils';
 import { Footer } from './Footer';
 import { Guesses } from './Guesses';
-import { StyledButton } from './StyledReusableComponents';
+import { Menu } from './Menu';
+import { StyledButton, StyledMenuButton } from './StyledReusableComponents';
 import { GameStatus } from './types';
 
 const Wrapper = styled.div`
@@ -33,6 +34,8 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
+  background-color: #f6f6f7;
+  box-shadow: 0 0 0.2rem 0.1rem #ccc;
 `;
 
 const Emoji = styled.span`
@@ -47,8 +50,10 @@ const GameStatusContainer = styled.div`
 `;
 
 export const Game = () => {
-  // TODO: enable user to select available colors
-  const [availableColors] = useState<Color[]>(getAvailableColors());
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [availableColors, setAvailableColors] = useState<Color[]>(
+    getAvailableColors(),
+  );
   const [rowToGuess, setRowToGuess] = useState<Row>(
     createRandomRow(availableColors),
   );
@@ -77,6 +82,11 @@ export const Game = () => {
     setRowToGuess(createRandomRow(availableColors));
     setGuesses([]);
     setGameStatus(GameStatus.IN_PROGRESS);
+  };
+
+  const saveSettings = (numberOfColors: number) => {
+    setAvailableColors(getAvailableColors(numberOfColors));
+    resetGame();
   };
 
   const renderEmoji = () => {
@@ -155,6 +165,9 @@ export const Game = () => {
       <GameContainer>
         <Header>
           <h1>🧐 Mastermind 🧐</h1>
+          <StyledMenuButton onClick={() => setMenuOpen(true)}>
+            ⚙️
+          </StyledMenuButton>
         </Header>
         <Emoji>{renderEmoji()}</Emoji>
         <Guesses
@@ -167,6 +180,11 @@ export const Game = () => {
         {renderGameStatus()}
       </GameContainer>
       <Footer />
+      <Menu
+        menuOpen={menuOpen}
+        closeMenu={() => setMenuOpen(false)}
+        saveSettings={saveSettings}
+      />
     </Wrapper>
   );
 };

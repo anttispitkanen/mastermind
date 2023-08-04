@@ -15,6 +15,11 @@ export const StyledSelect = styled.select`
   font-size: 1rem;
 `;
 
+export const StyledSelectLabel = styled.label`
+  margin-top: 1rem;
+  margin-bottom: 0.6rem;
+`;
+
 export const StyledOption = styled.option`
   min-height: 1.4rem;
   font-size: 1rem;
@@ -23,4 +28,12 @@ export const StyledOption = styled.option`
 export const StyledButton = styled.button`
   min-height: 1rem;
   font-size: 1rem;
+`;
+
+export const StyledMenuButton = styled.button`
+  font-size: 1.6rem;
+  cursor: pointer;
+  margin-left: 2rem;
+  background-color: transparent;
+  border: none;
 `;

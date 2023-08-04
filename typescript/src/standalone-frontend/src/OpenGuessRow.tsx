@@ -19,6 +19,7 @@ export const OpenGuessRow = ({
   guessIndex,
   saveGuess,
 }: OpenGuessRowProps) => {
+  // TODO: this should reset when the number of available colors changes
   const [guess, setGuess] = useState<Row>([
     Color.RED,
     Color.RED,

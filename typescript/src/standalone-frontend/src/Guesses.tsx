@@ -38,7 +38,7 @@ export const Guesses = ({
               { length: rowToGuess.length },
               (_, index) => index + 1,
             ).map((num) => (
-              <th>{num}</th>
+              <th key={num}>{num}</th>
             ))}
             <th>Result</th>
           </tr>
