@@ -8,8 +8,6 @@ export const ROW_LENGTH = 4;
 
 export const DEFAULT_NUMBER_OF_COLORS = 8;
 
-export const getAvailableColors = (
-  howMany: number = DEFAULT_NUMBER_OF_COLORS,
-) => {
+export const getAvailableColors = (howMany: number) => {
   return Object.values(Color).slice(0, howMany);
 };

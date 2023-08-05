@@ -3,7 +3,11 @@ import { styled } from 'styled-components';
 import { createRandomRow } from '../../common/createRandomRow';
 import { gradeGuess } from '../../common/grading';
 import { renderRow } from '../../common/renderer';
-import { MAX_GUESSES, getAvailableColors } from '../../common/rules';
+import {
+  DEFAULT_NUMBER_OF_COLORS,
+  MAX_GUESSES,
+  getAvailableColors,
+} from '../../common/rules';
 import { Color, Row } from '../../common/types';
 import { assertUnreachable } from '../../common/utils';
 import { Footer } from './Footer';
@@ -52,7 +56,7 @@ const GameStatusContainer = styled.div`
 export const Game = () => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [availableColors, setAvailableColors] = useState<Color[]>(
-    getAvailableColors(),
+    getAvailableColors(DEFAULT_NUMBER_OF_COLORS),
   );
   const [rowToGuess, setRowToGuess] = useState<Row>(
     createRandomRow(availableColors),
@@ -78,15 +82,16 @@ export const Game = () => {
     }
   };
 
-  const resetGame = () => {
-    setRowToGuess(createRandomRow(availableColors));
+  const resetGame = (availableColorsArg: Color[] = availableColors) => {
+    setRowToGuess(createRandomRow(availableColorsArg));
     setGuesses([]);
     setGameStatus(GameStatus.IN_PROGRESS);
   };
 
   const saveSettings = (numberOfColors: number) => {
-    setAvailableColors(getAvailableColors(numberOfColors));
-    resetGame();
+    const newAvailableColors = getAvailableColors(numberOfColors);
+    setAvailableColors(newAvailableColors);
+    resetGame(newAvailableColors);
   };
 
   const renderEmoji = () => {
@@ -142,7 +147,7 @@ export const Game = () => {
         return (
           <GameStatusContainer>
             <p>🥳 You won! 🥳</p>
-            <StyledButton onClick={resetGame}>Play again</StyledButton>
+            <StyledButton onClick={() => resetGame()}>Play again</StyledButton>
           </GameStatusContainer>
         );
 
@@ -151,7 +156,7 @@ export const Game = () => {
           <GameStatusContainer>
             <p>😢 You lost! 😢</p>
             <p>The correct row was {renderRow(rowToGuess)}</p>
-            <StyledButton onClick={resetGame}>Play again</StyledButton>
+            <StyledButton onClick={() => resetGame()}>Play again</StyledButton>
           </GameStatusContainer>
         );
 
