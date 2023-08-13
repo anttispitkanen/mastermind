@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { DEFAULT_NUMBER_OF_COLORS } from '../../common/rules';
+import {
+  DEFAULT_NUMBER_OF_COLORS,
+  DEFAULT_ROW_LENGTH,
+} from '../../common/rules';
+import { Settings } from '../../common/types';
 import {
   StyledButton,
   StyledMenuButton,
@@ -49,16 +53,20 @@ const SaveButton = styled(StyledButton)`
 type MenuProps = {
   menuOpen: boolean;
   closeMenu: () => void;
-  saveSettings: (number: number) => void;
+  saveSettings: (settings: Settings) => void;
 };
 
 export const Menu = ({ menuOpen, closeMenu, saveSettings }: MenuProps) => {
   const [numberOfColors, setNumberOfColors] = useState<number>(
     DEFAULT_NUMBER_OF_COLORS,
   );
+  const NUMBER_OF_COLORS_OPTIONS = [4, 5, 6, 7, 8, 9, 10];
+
+  const [rowLength, setRowLength] = useState<number>(DEFAULT_ROW_LENGTH);
+  const ROW_LENGTH_OPTIONS = [3, 4, 5, 6];
 
   const onSaveButtonClick = () => {
-    saveSettings(numberOfColors);
+    saveSettings({ numberOfColors, rowLength });
     closeMenu();
   };
 
@@ -79,21 +87,25 @@ export const Menu = ({ menuOpen, closeMenu, saveSettings }: MenuProps) => {
             setNumberOfColors(parseInt(event.target.value, 10))
           }
         >
-          <StyledOption value={4}>4</StyledOption>
-          <StyledOption value={5}>5</StyledOption>
-          <StyledOption value={6}>6</StyledOption>
-          <StyledOption value={7}>7</StyledOption>
-          <StyledOption value={8}>8</StyledOption>
-          <StyledOption value={9}>9</StyledOption>
-          <StyledOption value={10}>10</StyledOption>
+          {NUMBER_OF_COLORS_OPTIONS.map((number) => (
+            <StyledOption key={number} value={number}>
+              {number}
+            </StyledOption>
+          ))}
         </StyledSelect>
 
-        {/* <StyledSelectLabel htmlFor="number-of-slots">
-          Number of slots in a row
-        </StyledSelectLabel>
-        <StyledSelect name="number-of-slots">
-          <StyledOption value="1">TODO:</StyledOption>
-        </StyledSelect> */}
+        <StyledSelectLabel htmlFor="row-length">Row length</StyledSelectLabel>
+        <StyledSelect
+          name="row-length"
+          value={rowLength}
+          onChange={(event) => setRowLength(parseInt(event.target.value, 10))}
+        >
+          {ROW_LENGTH_OPTIONS.map((number) => (
+            <StyledOption key={number} value={number}>
+              {number}
+            </StyledOption>
+          ))}
+        </StyledSelect>
 
         {/* <StyledSelectLabel htmlFor="number-of-guesses">
           Number of guesses

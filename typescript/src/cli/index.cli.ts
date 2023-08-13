@@ -2,7 +2,12 @@ import { createRandomRow } from '../common/createRandomRow';
 import { gradeGuess } from '../common/grading';
 import { parseRow } from '../common/parser';
 import { renderRow } from '../common/renderer';
-import { MAX_GUESSES, getAvailableColors } from '../common/rules';
+import {
+  DEFAULT_NUMBER_OF_COLORS,
+  DEFAULT_ROW_LENGTH,
+  MAX_GUESSES,
+  getAvailableColors,
+} from '../common/rules';
 import { Color, GuessResult, Row } from '../common/types';
 import { readInput, rl } from './io.cli';
 
@@ -26,7 +31,7 @@ const singleRound =
     while (true) {
       const guess = await readInput(`Guess ${guessNumber}/${MAX_GUESSES}?\n`);
 
-      const parsedGuess = parseRow(availableColors)(guess);
+      const parsedGuess = parseRow(availableColors, DEFAULT_ROW_LENGTH)(guess);
       if (!parsedGuess.valid) {
         console.error('Invalid guess, try again! :DD');
         return singleRound(availableColors)(solutionRow, guessNumber);
@@ -50,9 +55,9 @@ const singleRound =
 
 const main = async () => {
   // TODO: read numberOfColors from command line flags
-  const availableColors = getAvailableColors();
+  const availableColors = getAvailableColors(DEFAULT_NUMBER_OF_COLORS);
 
-  const solutionRow = createRandomRow(availableColors);
+  const solutionRow = createRandomRow(availableColors, DEFAULT_ROW_LENGTH);
 
   const guesses: Row[] = [];
 

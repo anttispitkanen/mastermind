@@ -5,16 +5,16 @@ import { gradeGuess } from '../../common/grading';
 import { renderRow } from '../../common/renderer';
 import {
   DEFAULT_NUMBER_OF_COLORS,
+  DEFAULT_ROW_LENGTH,
   MAX_GUESSES,
   getAvailableColors,
 } from '../../common/rules';
-import { Color, Row } from '../../common/types';
+import { Color, GameStatus, Row, Settings } from '../../common/types';
 import { assertUnreachable } from '../../common/utils';
 import { Footer } from './Footer';
 import { Guesses } from './Guesses';
 import { Menu } from './Menu';
 import { StyledButton, StyledMenuButton } from './StyledReusableComponents';
-import { GameStatus } from './types';
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,8 +58,9 @@ export const Game = () => {
   const [availableColors, setAvailableColors] = useState<Color[]>(
     getAvailableColors(DEFAULT_NUMBER_OF_COLORS),
   );
+  const [rowLength, setRowLength] = useState<number>(DEFAULT_ROW_LENGTH);
   const [rowToGuess, setRowToGuess] = useState<Row>(
-    createRandomRow(availableColors),
+    createRandomRow(availableColors, rowLength),
   );
   const [guesses, setGuesses] = useState<Row[]>([]);
   const [gameStatus, setGameStatus] = useState<GameStatus>(
@@ -82,16 +83,23 @@ export const Game = () => {
     }
   };
 
-  const resetGame = (availableColorsArg: Color[] = availableColors) => {
-    setRowToGuess(createRandomRow(availableColorsArg));
+  const resetGame = (
+    availableColorsArg: Color[] = availableColors,
+    rowLengthArg: number = rowLength,
+  ) => {
+    setRowToGuess(createRandomRow(availableColorsArg, rowLengthArg));
     setGuesses([]);
     setGameStatus(GameStatus.IN_PROGRESS);
   };
 
-  const saveSettings = (numberOfColors: number) => {
-    const newAvailableColors = getAvailableColors(numberOfColors);
+  const saveSettings = ({
+    numberOfColors: numberOfColorsArg,
+    rowLength: rowLengthArg,
+  }: Settings) => {
+    const newAvailableColors = getAvailableColors(numberOfColorsArg);
     setAvailableColors(newAvailableColors);
-    resetGame(newAvailableColors);
+    setRowLength(rowLengthArg);
+    resetGame(newAvailableColors, rowLengthArg);
   };
 
   const renderEmoji = () => {
@@ -177,6 +185,7 @@ export const Game = () => {
         <Emoji>{renderEmoji()}</Emoji>
         <Guesses
           availableColors={availableColors}
+          rowLength={rowLength}
           guesses={guesses}
           rowToGuess={rowToGuess}
           saveGuess={saveGuess}

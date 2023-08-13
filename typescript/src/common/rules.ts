@@ -4,7 +4,7 @@ import { Color } from './types';
 export const MAX_GUESSES = 10;
 
 // Default value
-export const ROW_LENGTH = 4;
+export const DEFAULT_ROW_LENGTH = 4;
 
 export const DEFAULT_NUMBER_OF_COLORS = 8;
 

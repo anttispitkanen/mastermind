@@ -10,20 +10,20 @@ const normalizeRow = (row: string): string[] => {
 
 /**
  * Row must be
- *  - 4 items long
+ *  - the length configured in Settings
  *  - contain only valid colors
  *  - contains no duplicate colors
  */
 export const validateRow =
-  (availableColors: readonly Color[]) =>
+  (availableColors: readonly Color[], rowLength: number) =>
   (row: unknown[]): row is Row => {
-    if (row.length !== 4) return false;
+    if (row.length !== rowLength) return false;
 
     const validColors = row.filter((color) =>
       availableColors.includes(color as Color),
     );
 
-    if (validColors.length !== 4) return false;
+    if (validColors.length !== rowLength) return false;
 
     const validColorsNoDuplicates = new Set(validColors);
 
@@ -34,10 +34,10 @@ export const validateRow =
  * Parses a raw input string first into an array by splitting
  */
 export const parseRow =
-  (availableColors: Color[]) =>
+  (availableColors: Color[], rowLength: number) =>
   (rawRow: string): ValidationResult => {
     const normalizedRow = normalizeRow(rawRow);
-    const isValid = validateRow(availableColors)(normalizedRow);
+    const isValid = validateRow(availableColors, rowLength)(normalizedRow);
 
     if (!isValid) {
       return {

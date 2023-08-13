@@ -10,28 +10,28 @@ import {
 
 type OpenGuessRowProps = {
   availableColors: readonly Color[];
+  rowLength: number;
   guessIndex: number;
   saveGuess: (guess: Row) => void;
 };
 
+const getEmptyGuess = (rowLength: number): Row =>
+  Array.from({ length: rowLength }, () => Color.RED);
+
 export const OpenGuessRow = ({
   availableColors,
+  rowLength,
   guessIndex,
   saveGuess,
 }: OpenGuessRowProps) => {
   // TODO: this should reset when the number of available colors changes
-  const [guess, setGuess] = useState<Row>([
-    Color.RED,
-    Color.RED,
-    Color.RED,
-    Color.RED,
-  ]);
+  const [guess, setGuess] = useState<Row>(getEmptyGuess(rowLength));
 
   const setColor = (index: number) => (color: Color) => {
     setGuess((prevGuess) => prevGuess.map((c, i) => (i === index ? color : c)));
   };
 
-  const guessValid: boolean = validateRow(availableColors)(guess);
+  const guessValid: boolean = validateRow(availableColors, rowLength)(guess);
 
   return (
     <StyledTableRow $correct={false}>

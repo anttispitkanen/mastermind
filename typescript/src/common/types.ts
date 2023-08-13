@@ -28,3 +28,14 @@ export type GuessResult =
       correctColorInCorrectPlace: number;
       correctColorInWrongPlace: number;
     };
+
+export enum GameStatus {
+  WON = 'won',
+  LOST = 'lost',
+  IN_PROGRESS = 'in-progress',
+}
+
+export type Settings = {
+  rowLength: number;
+  numberOfColors: number;
+};

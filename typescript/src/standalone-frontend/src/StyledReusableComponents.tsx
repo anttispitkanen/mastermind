@@ -28,6 +28,7 @@ export const StyledOption = styled.option`
 export const StyledButton = styled.button`
   min-height: 1rem;
   font-size: 1rem;
+  cursor: pointer;
 `;
 
 export const StyledMenuButton = styled.button`
